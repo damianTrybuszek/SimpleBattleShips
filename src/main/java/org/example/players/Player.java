@@ -23,6 +23,7 @@ public abstract class Player {
         this.shipList = List.of(new Ship(ShipType.BATTLESHIP), new Ship(ShipType.DESTROYER), new Ship(ShipType.DESTROYER));
     }
 
+
     public boolean isAlive(){
         return !this.shipList.isEmpty();
     }

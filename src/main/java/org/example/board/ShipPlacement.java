@@ -1,24 +1,30 @@
 package org.example.board;
 
 
+import lombok.AllArgsConstructor;
 import org.example.players.Player;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+@AllArgsConstructor
 public class ShipPlacement {
     private Random random;
 
-    public void randomPlacement(Player player, Board playerBoard, Board placementBoard) {
+    public ShipPlacement() {
+        this.random = new Random();
+    }
+
+    public void randomPlacement(Player player) {
         for (Ship currentShip : player.getShipList()){
         do {
             currentShip.setShipStartX(random.nextInt(10));
             currentShip.setShipStartY(random.nextInt(10));
             currentShip.setShipOrientation(random.nextInt(2) == 0 ? ShipOrientation.HORIZONTAL : ShipOrientation.VERTICAL);
             currentShip.setSquaresList();
-        } while (!(playerBoard.isPlacementOk(currentShip, placementBoard.getOcean())));
-        placeShip(playerBoard.getOcean(), currentShip);
-        placeShipOnPlacementBoard(placementBoard.getOcean(), currentShip);
+        } while (!(player.getPlayerBoard().isPlacementOk(currentShip, player.getPlayerPlacementBoard().getOcean())));
+        placeShip(player.getPlayerBoard().getOcean(), currentShip);
+        placeShipOnPlacementBoard(player.getPlayerPlacementBoard().getOcean(), currentShip);
     }}
 
     public void setSquaresList(Ship ship) {
