@@ -7,21 +7,30 @@ import org.example.board.Ship;
 import org.example.board.ShipType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @Getter
 public abstract class Player {
 
     private String name;
-    protected List<Ship> shipList;
-    private Board playerBoard = new Board();
-    private Board playerPlacementBoard = new Board();
-    private Board shootingBoard = new Board();
+    protected LinkedList<Ship> shipList;
+    private Board playerBoard;
+    private Board playerPlacementBoard;
+    private Board shootingBoard;
 
     public Player(String name) {
+        this.playerBoard = new Board();
+        this.playerPlacementBoard = new Board();
+        this.shootingBoard = new Board();
         this.name = name;
-        this.shipList = List.of(new Ship(ShipType.BATTLESHIP), new Ship(ShipType.DESTROYER), new Ship(ShipType.DESTROYER));
+        this.shipList = new LinkedList<>();
+        this.shipList.add(new Ship(ShipType.BATTLESHIP));
+        this.shipList.add(new Ship(ShipType.DESTROYER));
+        this.shipList.add(new Ship(ShipType.DESTROYER));
     }
+
 
 
     public boolean isAlive(){

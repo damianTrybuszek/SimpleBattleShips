@@ -13,7 +13,6 @@ public class Ship {
     private Random random;
     private ShipType shipType;
     private int length;
-    private boolean isSunken;
     protected LinkedList<Square> squaresList;
     private ShipOrientation shipOrientation;
     private int shipStartY;
@@ -22,7 +21,6 @@ public class Ship {
 
     public Ship(ShipType shipType) {
         this.shipType = shipType;
-        this.isSunken = false;
         this.length = this.shipType.getShipLength();
         this.squaresList = new LinkedList<>();
     }

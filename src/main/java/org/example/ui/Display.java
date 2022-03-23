@@ -5,14 +5,6 @@ import org.example.board.SquareStatus;
 
 public class Display {
 
-    private void printRowNumbers(int gameBoardLength) {
-
-        for (int i = 1; i <= gameBoardLength; i++) {
-            System.out.printf("%2s", (1 + i));
-        }
-        System.out.println();
-    }
-
     private void printColumnLetters(int gameBoardLength) {
         System.out.print("  ");
         for (int i = 0; i < gameBoardLength; i++) {
@@ -23,9 +15,8 @@ public class Display {
 
     public void printBoard(Square[][] ocean){
         printColumnLetters(ocean[0].length);
-        printRowNumbers(ocean[0].length);
         for (int i = 0; i < ocean.length; i++) {
-            System.out.printf("%2s",  (char) (0x0041 + i));
+            System.out.printf("%2s", 1+ i);
             for (int j = 0; j < ocean[i].length; j++) {
                 System.out.print(getSquareCharacter(ocean[i][j].getSquareStatus()));
             }
@@ -65,5 +56,16 @@ public class Display {
     public void printGameExit() {
         System.out.println("You are going to exit!");
         System.out.println("See you again");
+    }
+
+    public void anyKeyToContinue () {
+        System.out.println("Press \"ENTER\" to continue...");
+        try
+        {
+            System.in.read();
+        }
+        catch(Exception e)
+        {}
+        clearScreen();
     }
 }

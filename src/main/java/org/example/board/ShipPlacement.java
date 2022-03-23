@@ -7,9 +7,9 @@ import org.example.players.Player;
 import java.util.ArrayList;
 import java.util.Random;
 
-@AllArgsConstructor
+
 public class ShipPlacement {
-    private Random random;
+    private final Random random;
 
     public ShipPlacement() {
         this.random = new Random();

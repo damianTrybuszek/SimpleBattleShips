@@ -1,39 +1,41 @@
 package org.example.gamePlay;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Control {
     public Scanner sc;
+    private final List <Character> letterList;
 
-    public Control(Scanner sc) {
+    public Control() {
         this.sc = new Scanner(System.in);
+        this.letterList = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
     }
 
-    private int[] readCoordinates() {
+    protected int[] readCoordinates() {
+        char columnLetter = 'z';
+        int rowNumber = -1;
         int columnIndex = -1;
         int rowIndex = -1;
-        String coordinates = sc.next().replaceAll("\\s+", "");
-        try {
-            columnIndex = setColumnNumber(coordinates.charAt(0));
-            rowIndex = setRowNumber(Character.getNumericValue(coordinates.charAt(1)));
-        } catch (Exception e) {
-            System.out.println("You should use coordinates between A1 to J10");
-            readCoordinates();
+        boolean areCoordinatesCorrect;
+        do {
+            String coordinates = sc.next() + "  ";
+            System.out.println(coordinates);
+            if (Character.isLetter(coordinates.charAt(0))){
+            columnLetter = coordinates.charAt(0);}
+            if (Character.isDigit(coordinates.charAt(1))){
+            rowNumber = Character.getNumericValue(coordinates.charAt(1));}
+            areCoordinatesCorrect = (letterList.contains(Character.toUpperCase(columnLetter)) && 0 < rowNumber && rowNumber <= 10);
+            if (areCoordinatesCorrect){
+            columnIndex = letterList.indexOf(Character.toUpperCase(columnLetter));
+            rowIndex = rowNumber - 1;
+                }
+            else {
+            System.out.println("You should use coordinates between A1 to J10");}
         }
+        while(!areCoordinatesCorrect);
+
         return new int[]{rowIndex, columnIndex};
     }
 
 
-    private int setColumnNumber(char columnLetter) throws IndexOutOfBoundsException {
-        Character[] letterList = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-        return (Arrays.asList(letterList)).indexOf(Character.toUpperCase(columnLetter));
-    }
-
-    private int setRowNumber(int rowNumber) throws IndexOutOfBoundsException {
-        if (0 < rowNumber && rowNumber <= 10) {
-            return rowNumber - 1;
-        }
-        throw new IndexOutOfBoundsException();
-    }
 }

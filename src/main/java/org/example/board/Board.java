@@ -8,8 +8,12 @@ import java.util.LinkedList;
 @Getter
 public class Board {
     private final int boardSize = 10;
+    Square[][] ocean;
 
-    Square[][] ocean = new Square[boardSize][boardSize];
+    public Board() {
+        this.ocean = new Square[boardSize][boardSize];
+        createBoard();
+    }
 
     private void createBoard(){
         for(int y = 0; y < ocean.length; y++){
@@ -18,6 +22,8 @@ public class Board {
             }
         }
     }
+
+
 
     public boolean isPlacementOk (Ship ship, Square[][] ocean) {
         LinkedList<Square> shipsElements = ship.getSquaresList();
