@@ -33,10 +33,9 @@ public class Game {
     }
 
     private void checkWinner() {
-        if(human.getShipList().isEmpty()){
+        if (human.getShipList().isEmpty()) {
             System.out.println("Computer Won.");
-        }
-        else if (computer.getShipList().isEmpty() ){
+        } else if (computer.getShipList().isEmpty()) {
             System.out.println("Human Won");
         }
 

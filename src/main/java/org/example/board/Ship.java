@@ -3,7 +3,6 @@ package org.example.board;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -24,6 +23,7 @@ public class Ship {
         this.length = this.shipType.getShipLength();
         this.squaresList = new LinkedList<>();
     }
+
     public void setSquaresList() {
         this.squaresList.clear();
         for (int i = 0; i < this.shipType.getShipLength(); i++) {
@@ -41,7 +41,4 @@ public class Ship {
             }
         }
     }
-
-
-
 }

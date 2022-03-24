@@ -5,7 +5,9 @@ public enum ShipType {
 
     private final int shipLength;
 
-    ShipType(int shipLength) {this.shipLength = shipLength;}
+    ShipType(int shipLength) {
+        this.shipLength = shipLength;
+    }
 
     public int getShipLength() {
         return this.shipLength;

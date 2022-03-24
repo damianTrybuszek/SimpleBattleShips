@@ -1,10 +1,7 @@
 package org.example.ui;
 
-import lombok.SneakyThrows;
 import org.example.board.Square;
 import org.example.board.SquareStatus;
-
-import java.io.IOException;
 
 
 public class Display {
@@ -12,15 +9,15 @@ public class Display {
     private void printColumnLetters(int gameBoardLength) {
         System.out.print("  ");
         for (int i = 0; i < gameBoardLength; i++) {
-            System.out.printf("%2s",  (char) (0x0041 + i));
+            System.out.printf("%2s", (char) (0x0041 + i));
         }
         System.out.println();
     }
 
-    public void printBoard(Square[][] ocean){
+    public void printBoard(Square[][] ocean) {
         printColumnLetters(ocean[0].length);
         for (int i = 0; i < ocean.length; i++) {
-            System.out.printf("%2s", 1+ i);
+            System.out.printf("%2s", 1 + i);
             for (int j = 0; j < ocean[i].length; j++) {
                 System.out.print(getSquareCharacter(ocean[i][j].getSquareStatus()));
             }
@@ -30,11 +27,10 @@ public class Display {
     }
 
 
-
-    public String getSquareCharacter(SquareStatus squareStatus){
-        switch (squareStatus){
+    public String getSquareCharacter(SquareStatus squareStatus) {
+        switch (squareStatus) {
             case EMPTY:
-                return  "\uD83C\uDF0A";
+                return "\uD83C\uDF0A";
             case HIT:
                 return "\ud83d\udd25";
             case SHIP:
@@ -68,13 +64,12 @@ public class Display {
         System.out.println("See you again");
     }
 
-    public void anyKeyToContinue () {
+    public void anyKeyToContinue() {
         System.out.println("Press \"ENTER\" to continue...");
         try {
             System.in.read();
+        } catch (Exception e) {
         }
-        catch(Exception e)
-        {}
         clearScreen();
     }
 }

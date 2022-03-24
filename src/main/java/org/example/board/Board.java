@@ -1,8 +1,6 @@
 package org.example.board;
 
 import lombok.Getter;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.stream.IntStream;
@@ -19,7 +17,6 @@ public class Board {
 
     private void createBoard() {
         IntStream.range(0, ocean.length).forEach(y -> Arrays.setAll(ocean[y], x -> (new Square(y, x, SquareStatus.EMPTY))));
-
     }
 
     public boolean isPlacementOk(Ship ship) {
@@ -38,8 +35,5 @@ public class Board {
     private boolean isPlacementOccupied(Square shipElement) {
         return (ocean[shipElement.getY()][shipElement.getX()]).getSquareStatus() != SquareStatus.EMPTY;
     }
-
-    ;
-
 
 }

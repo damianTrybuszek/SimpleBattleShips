@@ -6,10 +6,7 @@ import org.example.board.Board;
 import org.example.board.Ship;
 import org.example.board.ShipType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 
 @Getter
 public abstract class Player {
@@ -29,12 +26,6 @@ public abstract class Player {
         this.shipList.add(new Ship(ShipType.BATTLESHIP));
         this.shipList.add(new Ship(ShipType.DESTROYER));
         this.shipList.add(new Ship(ShipType.DESTROYER));
-    }
-
-
-
-    public boolean isAlive(){
-        return !this.shipList.isEmpty();
     }
 
 }

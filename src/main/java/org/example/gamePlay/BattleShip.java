@@ -1,6 +1,7 @@
 package org.example.gamePlay;
 
 import org.example.ui.Display;
+
 import java.util.Scanner;
 
 public class BattleShip {
