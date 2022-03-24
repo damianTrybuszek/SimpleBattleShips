@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class BattleShip {
     private Display display;
-    private Boolean exit;
+    private boolean exit;
     Scanner sc;
 
     public BattleShip() {
@@ -27,6 +27,8 @@ public class BattleShip {
                     display.printGameExit();
                     this.exit = true;
                     break;
+                default:
+                    System.out.println("Try to choose 1 or 2.");
             }
         } while (!this.exit);
     }

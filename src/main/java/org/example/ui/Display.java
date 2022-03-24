@@ -70,8 +70,7 @@ public class Display {
 
     public void anyKeyToContinue () {
         System.out.println("Press \"ENTER\" to continue...");
-        try
-        {
+        try {
             System.in.read();
         }
         catch(Exception e)

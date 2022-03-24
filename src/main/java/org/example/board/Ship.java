@@ -10,10 +10,10 @@ import java.util.Random;
 @Getter
 @Setter
 public class Ship {
+    protected LinkedList<Square> squaresList;
     private Random random;
     private ShipType shipType;
     private int length;
-    protected LinkedList<Square> squaresList;
     private ShipOrientation shipOrientation;
     private int shipStartY;
     private int shipStartX;
