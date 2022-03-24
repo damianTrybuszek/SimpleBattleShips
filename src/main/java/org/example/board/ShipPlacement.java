@@ -22,7 +22,7 @@ public class ShipPlacement {
             currentShip.setShipStartY(random.nextInt(10));
             currentShip.setShipOrientation(random.nextInt(2) == 0 ? ShipOrientation.HORIZONTAL : ShipOrientation.VERTICAL);
             currentShip.setSquaresList();
-        } while (!(player.getPlayerBoard().isPlacementOk(currentShip, player.getPlayerPlacementBoard().getOcean())));
+        } while (!(player.getPlayerBoard().isPlacementOk(currentShip)));
         placeShip(player.getPlayerBoard().getOcean(), currentShip);
         placeShipOnPlacementBoard(player.getPlayerPlacementBoard().getOcean(), currentShip);
     }}

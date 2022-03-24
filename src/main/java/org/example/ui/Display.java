@@ -1,7 +1,11 @@
 package org.example.ui;
 
+import lombok.SneakyThrows;
 import org.example.board.Square;
 import org.example.board.SquareStatus;
+
+import java.io.IOException;
+
 
 public class Display {
 
@@ -25,18 +29,20 @@ public class Display {
 
     }
 
+
+
     public String getSquareCharacter(SquareStatus squareStatus){
         switch (squareStatus){
             case EMPTY:
-                return  "\033[0;94m" + "\uD83C\uDF0A";
+                return  "\uD83C\uDF0A";
             case HIT:
-                return "\033[0;91m" + "\uD83D\uDCA5";
+                return "\ud83d\udd25";
             case SHIP:
-                return "\033[0;97m" + "\uD83D\uDEA2";
+                return "\uD83D\uDEA2";
             case SUNKEN:
-                return "\033[0;97m" + "⚓";
+                return "\uD83D\uDCA5";
             case MISSED:
-                return "\033[0;96m" + "\uD83D\uDC1F";
+                return "\ud83d\udeab";
             default:
                 return null;
         }
@@ -45,6 +51,9 @@ public class Display {
     public void printMainMenu() {
         clearScreen();
         System.out.println("Hello Dear User! Welcome to Battleships Game!");
+        System.out.println("At the beginning, every square of the ocean will be seen like this: \uD83C\uDF0A.");
+        System.out.println("If you miss, you can see square like this: \ud83d\udeab.");
+        System.out.println("If you hit, you will see \ud83d\udd25, and  if you sink the enemy ship, you can see \uD83D\uDCA5.");
         System.out.println("To start new game please select 1.");
         System.out.println("To exit please select 2.");
     }
@@ -52,6 +61,7 @@ public class Display {
     public void clearScreen() {
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
+
 
     public void printGameExit() {
         System.out.println("You are going to exit!");

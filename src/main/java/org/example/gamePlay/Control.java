@@ -5,10 +5,12 @@ import java.util.*;
 public class Control {
     public Scanner sc;
     private final List <Character> letterList;
+    private Random random;
 
     public Control() {
         this.sc = new Scanner(System.in);
         this.letterList = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
+        this.random = new Random();
     }
 
     protected int[] readCoordinates() {
@@ -36,6 +38,10 @@ public class Control {
 
         return new int[]{rowIndex, columnIndex};
     }
+
+    protected int[] randomlyFindCoordinates(){
+        return new int[]{random.nextInt(10), random.nextInt(10)};
+    };
 
 
 }

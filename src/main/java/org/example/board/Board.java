@@ -3,7 +3,9 @@ package org.example.board;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.stream.IntStream;
 
 @Getter
 public class Board {
@@ -15,31 +17,29 @@ public class Board {
         createBoard();
     }
 
-    private void createBoard(){
-        for(int y = 0; y < ocean.length; y++){
-            for (int x = 0; x < ocean.length; x++){
-                ocean[y][x] = new Square(y, x, SquareStatus.EMPTY);
-            }
-        }
+    private void createBoard() {
+        IntStream.range(0, ocean.length).forEach(y -> Arrays.setAll(ocean[y], x -> (new Square(y, x, SquareStatus.EMPTY))));
+
     }
 
-
-
-    public boolean isPlacementOk (Ship ship, Square[][] ocean) {
+    public boolean isPlacementOk(Ship ship) {
         LinkedList<Square> shipsElements = ship.getSquaresList();
-        for (Square shipElement : shipsElements){
-            if (shipElement.getX() < 0 ||  shipElement.getY() < 0 || shipElement.getX() >= ocean.length ||
-                    shipElement.getY() >= ocean.length)
-            {
-                return false;
-            }
-            if ((ocean[shipElement.getY()][shipElement.getX()]).getSquareStatus() != SquareStatus.EMPTY){
-                return false;
-            }
+        for (Square shipElement : shipsElements) {
+            if (!isShipInBounds(shipElement) || isPlacementOccupied(shipElement)) return false;
         }
         return true;
-    };
+    }
 
+    private boolean isShipInBounds(Square shipElement) {
+        return !(shipElement.getX() < 0 || shipElement.getY() < 0 || shipElement.getX() >= ocean.length ||
+                shipElement.getY() >= ocean.length);
+    }
+
+    private boolean isPlacementOccupied(Square shipElement) {
+        return (ocean[shipElement.getY()][shipElement.getX()]).getSquareStatus() != SquareStatus.EMPTY;
+    }
+
+    ;
 
 
 }

@@ -6,7 +6,6 @@ import org.example.players.HumanPlayer;
 import org.example.players.Player;
 import org.example.ui.Display;
 
-import java.util.Arrays;
 
 public class Game {
 
@@ -30,6 +29,16 @@ public class Game {
         while (!isGameOver()) {
             playRound();
         }
+        checkWinner();
+    }
+
+    private void checkWinner() {
+        if(human.getShipList().isEmpty()){
+            System.out.println("Computer Won.");
+        }
+        else if (computer.getShipList().isEmpty() ){
+            System.out.println("Human Won");
+        }
 
     }
 
@@ -40,24 +49,45 @@ public class Game {
     }
 
     public void battle(Player currentPlayer, Player enemyPlayer) {
-        boolean canShoot;
         int[] coordinates;
         Board shootingBoard = currentPlayer.getShootingBoard();
         Board enemyBoard = enemyPlayer.getPlayerBoard();
-        int boardSize = shootingBoard.getBoardSize();
-        System.out.println(currentPlayer.getName() + ", it's your turn!");
-        display.printBoard(shootingBoard.getOcean());
-        do {
-            coordinates = control.readCoordinates();
-            canShoot = checkIfCanShoot(shootingBoard,coordinates);
+        if (currentPlayer == human) {
+            coordinates = getHumanCoordinates(shootingBoard);
+        } else {
+            coordinates = getComputerCoordinates(shootingBoard);
         }
-        while (!canShoot);
-        shoot(shootingBoard, enemyBoard, coordinates,currentPlayer, enemyPlayer);
+        shoot(shootingBoard, enemyBoard, coordinates, currentPlayer, enemyPlayer);
         display.printBoard(shootingBoard.getOcean());
         display.anyKeyToContinue();
     }
 
-    private boolean checkIfCanShoot(Board shootingBoard, int [] coordinates) {
+    private int[] getComputerCoordinates(Board shootingBoard) {
+        boolean canShoot;
+        int[] coordinates;
+        System.out.println(computer.getName() + "s' shot result");
+        do {
+            coordinates = control.randomlyFindCoordinates();
+            canShoot = checkIfCanShoot(shootingBoard, coordinates);
+        }
+        while (!canShoot);
+        return coordinates;
+    }
+
+    private int[] getHumanCoordinates(Board shootingBoard) {
+        boolean canShoot;
+        int[] coordinates;
+        System.out.println(human.getName() + ", it's your turn!");
+        display.printBoard(shootingBoard.getOcean());
+        do {
+            coordinates = control.readCoordinates();
+            canShoot = checkIfCanShoot(shootingBoard, coordinates);
+        }
+        while (!canShoot);
+        return coordinates;
+    }
+
+    private boolean checkIfCanShoot(Board shootingBoard, int[] coordinates) {
         int rowNr = coordinates[0];
         int colNr = coordinates[1];
         if (shootingBoard.getOcean()[rowNr][colNr].getSquareStatus() == SquareStatus.EMPTY) {
@@ -68,22 +98,22 @@ public class Game {
     }
 
 
-    private void shoot(Board shootingBoard, Board enemyBoard, int [] coordinates, Player currentPlayer, Player enemyPlayer) {
+    private void shoot(Board shootingBoard, Board enemyBoard, int[] coordinates, Player currentPlayer, Player enemyPlayer) {
         int rowNr = coordinates[0];
         int colNr = coordinates[1];
-        if (enemyBoard.getOcean()[rowNr][colNr].getSquareStatus() == SquareStatus.SHIP){
+        if (enemyBoard.getOcean()[rowNr][colNr].getSquareStatus() == SquareStatus.SHIP) {
             enemyBoard.getOcean()[rowNr][colNr].setSquareStatus(SquareStatus.HIT);
             shootingBoard.getOcean()[rowNr][colNr].setSquareStatus(SquareStatus.HIT);
             System.out.println("Enemy's ship has got shot!");
-            shipSink(computer, enemyPlayer);
-        }else if(enemyBoard.getOcean()[rowNr][colNr].getSquareStatus() == SquareStatus.EMPTY){
+            shipSink(currentPlayer, enemyPlayer);
+        } else if (enemyBoard.getOcean()[rowNr][colNr].getSquareStatus() == SquareStatus.EMPTY) {
             shootingBoard.getOcean()[rowNr][colNr].setSquareStatus(SquareStatus.MISSED);
             System.out.println("Not this time. Missed shot!");
         }
     }
 
-    private boolean isGameOver(){
-        if (human.getShipList().isEmpty() || computer.getShipList().isEmpty()){
+    private boolean isGameOver() {
+        if (human.getShipList().isEmpty() || computer.getShipList().isEmpty()) {
             return true;
         }
         return false;
@@ -91,23 +121,23 @@ public class Game {
 
     private void shipSink(Player currentPlayer, Player enemyPlayer) {
         int indexOfShipToRemove = -1;
-        for (Ship ship: enemyPlayer.getShipList()){
+        for (Ship ship : enemyPlayer.getShipList()) {
             boolean isSunken = true;
-            for (Square square: ship.getSquaresList()){
-                if (enemyPlayer.getPlayerBoard().getOcean()[square.getY()][square.getX()].getSquareStatus() != SquareStatus.HIT){
+            for (Square square : ship.getSquaresList()) {
+                if (enemyPlayer.getPlayerBoard().getOcean()[square.getY()][square.getX()].getSquareStatus() != SquareStatus.HIT) {
                     isSunken = false;
                     break;
                 }
             }
             if (isSunken) {
-                for (Square square: ship.getSquaresList()){
+                for (Square square : ship.getSquaresList()) {
                     enemyPlayer.getPlayerBoard().getOcean()[square.getY()][square.getX()].setSquareStatus(SquareStatus.SUNKEN);
                     currentPlayer.getShootingBoard().getOcean()[square.getY()][square.getX()].setSquareStatus(SquareStatus.SUNKEN);
                 }
                 indexOfShipToRemove = enemyPlayer.getShipList().indexOf(ship);
             }
         }
-        if (indexOfShipToRemove>-1){
+        if (indexOfShipToRemove > -1) {
             enemyPlayer.getShipList().remove(indexOfShipToRemove);
         }
 
